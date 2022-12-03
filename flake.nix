@@ -5,7 +5,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      typhonProject = { actions = pkgs.callPackage ./actions.nix { }; };
+      typhonProject = import ./project.nix { inherit pkgs; };
       typhonJobs = { inherit (pkgs) hello; };
     };
 }
