@@ -1,11 +1,19 @@
 {
-  inputs = { nixpkgs.url = "nixpkgs/nixos-unstable"; };
-  outputs = { self, nixpkgs }:
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    typhon.url = "github:typhon-ci/typhon";
+  };
+  outputs = { self, nixpkgs, typhon }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      libTyphon = typhon.actions.${system};
     in {
-      typhonProject = import ./project.nix { inherit pkgs; };
+      typhonProject = libTyphon.mkGithubProject {
+        owner = "pnmadelaine";
+        repo = "typhon-test";
+        token = ./secrets.age;
+      };
       typhonJobs = { inherit (pkgs) hello; };
     };
 }
