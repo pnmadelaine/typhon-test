@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    typhon.url = "github:typhon-ci/typhon";
+    typhon.url = "github:typhon-ci/typhon/dev-pnm";
   };
   outputs = { self, nixpkgs, typhon }:
     let
